@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@theme {
+  --color-dark-primary: var(--bg-primary);
+  --color-dark-secondary: var(--bg-secondary);
+  --color-accent-green: #22c55e;
+}
+
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f1f5f9;
+  --text-main: #0f172a;
+}
+
+.dark {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --text-main: #ffffff;
+}
+
+body {
+  color: var(--text-main);
+}
