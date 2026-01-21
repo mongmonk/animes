@@ -1,60 +1,69 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="https://capsule-render.vercel.app/render?type=waving&color=eb4034&height=300&section=header&text=Animes%20Project&fontSize=90&animation=fadeIn" alt="Animes Banner" />
 </p>
 
-## About Laravel
+# 🎬 Animes Project
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+[![Laravel](https://img.shields.io/badge/Laravel-12.x-FF2D20?style=for-the-badge&logo=laravel)](https://laravel.com)
+[![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4?style=for-the-badge&logo=php)](https://php.net)
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.x-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Animes Project adalah platform streaming dan katalog anime modern yang dibangun menggunakan Laravel 12. Proyek ini dilengkapi dengan fitur scraper otomatis untuk mengambil data anime, episode, dan sumber video secara dinamis.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## ✨ Fitur Utama
 
-## Learning Laravel
+-   **Scraper Otomatis**: Ingest data anime langsung dari sumber eksternal melalui perintah CLI.
+-   **Katalog Lengkap**: Filter berdasarkan genre, popularitas, dan rilis terbaru.
+-   **Streaming System**: Dukungan multi-source video dan link download untuk setiap episode.
+-   **PWA Ready**: Dilengkapi dengan Service Worker untuk pengalaman offline.
+-   **Performa Tinggi**: Menggunakan Laravel Octane dengan RoadRunner untuk responsivitas maksimal.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## 🛠️ Stack Teknologi
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+-   **Backend**: [Laravel 12](https://laravel.com)
+-   **Server**: [Laravel Octane](https://laravel.com/docs/octane) & [RoadRunner](https://roadrunner.dev/)
+-   **Frontend**: Blade, TailwindCSS, & Vite
+-   **Scraper**: Symfony DomCrawler & Guzzle
+-   **Database**: MySQL / SQLite
 
-## Laravel Sponsors
+## 🚀 Instalasi Cepat
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+1.  **Clone repositori:**
+    ```bash
+    git clone https://github.com/username/animes.git
+    cd animes
+    ```
 
-### Premium Partners
+2.  **Setup Proyek:**
+    Kami telah menyediakan skrip setup otomatis:
+    ```bash
+    composer run setup
+    ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+3.  **Jalankan Server Pengembangan:**
+    ```bash
+    composer run dev
+    ```
 
-## Contributing
+## 🔍 Penggunaan Scraper
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Untuk mengambil data anime baru, gunakan perintah artisan berikut:
 
-## Code of Conduct
+```bash
+# Crawl dari URL list
+php artisan scraper:ingest --url=https://situs-sumber.com/series
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# Ingest dari file HTML lokal (untuk testing)
+php artisan scraper:ingest --file=docs/mock_detail.html
+```
 
-## Security Vulnerabilities
+## 📂 Struktur Proyek
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+-   `app/Services/AnimeScraperService.php`: Logika inti scraping.
+-   `app/Console/Commands/ScraperIngest.php`: Command untuk menjalankan scraper.
+-   `resources/views/`: Template frontend (Home, Detail, Watch, dll).
 
-## License
+## 📄 Lisensi
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-# animes
+Proyek ini dilisensikan di bawah [MIT license](https://opensource.org/licenses/MIT).
