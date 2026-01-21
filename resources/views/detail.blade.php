@@ -23,7 +23,7 @@
             <h1 class="text-4xl font-bold mb-4">{{ $anime->title }}</h1>
             <div class="flex flex-wrap gap-2 mb-6">
                 @foreach($anime->genres as $genre)
-                    <span class="bg-white/10 hover:bg-white/20 px-3 py-1 rounded-full text-xs transition cursor-pointer">{{ $genre->name }}</span>
+                    <a href="{{ route('genres.show', $genre->slug) }}" class="bg-white/10 hover:bg-white/20 px-3 py-1 rounded-full text-xs transition cursor-pointer">{{ $genre->name }}</a>
                 @endforeach
             </div>
 

@@ -14,7 +14,7 @@ class AnimeController extends Controller
         $latestEpisodes = Episode::with('anime')->latest()->take(12)->get();
         $trendingAnime = Anime::with('genres')->orderBy('rating', 'desc')->first();
         $topRatedAnimes = Anime::with('genres')->orderBy('rating', 'desc')->take(6)->get();
-        $genres = \App\Models\Genre::take(10)->get();
+        $genres = \App\Models\Genre::inRandomOrder()->take(10)->get();
         
         return view('home', compact('latestAnimes', 'latestEpisodes', 'trendingAnime', 'topRatedAnimes', 'genres'));
     }

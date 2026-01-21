@@ -41,7 +41,7 @@
         <div class="flex gap-3 overflow-x-auto no-scrollbar pb-2">
             <a href="/series" class="flex-shrink-0 px-4 py-2 rounded-full bg-primary text-white text-sm font-semibold">All</a>
             @foreach($genres as $genre)
-                <a href="/series?genres[]={{ $genre->slug }}" class="flex-shrink-0 px-4 py-2 rounded-full bg-white dark:bg-card-dark border border-gray-200 dark:border-white/5 hover:border-primary dark:hover:border-primary text-gray-700 dark:text-gray-300 hover:text-primary transition-colors text-sm font-medium">
+                <a href="{{ route('genres.show', $genre->slug) }}" class="flex-shrink-0 px-4 py-2 rounded-full bg-white dark:bg-card-dark border border-gray-200 dark:border-white/5 hover:border-primary dark:hover:border-primary text-gray-700 dark:text-gray-300 hover:text-primary transition-colors text-sm font-medium">
                     {{ $genre->name }}
                 </a>
             @endforeach
