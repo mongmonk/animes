@@ -12,3 +12,4 @@ Route::get('/genres/{slug}', [AnimeController::class, 'genreShow'])->name('genre
 Route::get('/search', [AnimeController::class, 'search'])->name('anime.search');
 Route::get('/series/{slug}', [AnimeController::class, 'show'])->name('anime.detail');
 Route::get('/series/{animeSlug}/episode/{episodeSlug}', [AnimeController::class, 'watch'])->name('anime.watch');
+Route::get('/sitemap.xml', [AnimeController::class, 'sitemap'])->name('sitemap');

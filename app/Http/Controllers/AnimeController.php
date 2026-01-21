@@ -151,4 +151,17 @@ class AnimeController extends Controller
         $title = "Genre: " . $genre->name;
         return view('directory', compact('animes', 'title'));
     }
+
+    public function sitemap()
+    {
+        $animes = Anime::whereNotNull('slug')->get();
+        $episodes = Episode::with('anime')->whereNotNull('slug')->get();
+        $genres = \App\Models\Genre::whereNotNull('slug')->where('slug', '!=', '')->get();
+
+        return response()->view('sitemap', [
+            'animes' => $animes,
+            'episodes' => $episodes,
+            'genres' => $genres,
+        ])->header('Content-Type', 'text/xml');
+    }
 }
