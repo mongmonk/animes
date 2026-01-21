@@ -33,6 +33,87 @@ class AnimeScraperService
     }
 
     /**
+     * Scrape latest episodes from homepage.
+     */
+    public function scrapeLatestEpisodes(string $html): array
+    {
+        $crawler = new Crawler($html);
+        $episodes = [];
+
+        // Oploverz modern menggunakan SvelteKit dan data seringkali di-serialize dalam bentuk array of objects
+        // Kita cari semua objek yang memiliki pola series dan episodeNumber
+        if (preg_match_all('/\{id:\d+,subbed:".*?",title:.*?,episodeNumber:"(\d+)",.*?series:\{id:\d+,seriesId:\d+,title:"(.*?)",.*?slug:"(.*?)",/s', $html, $matches, PREG_SET_ORDER)) {
+            foreach ($matches as $m) {
+                $epNum = $m[1];
+                $animeTitle = $m[2];
+                $animeSlug = $m[3];
+                
+                $episodes[] = [
+                    'anime_title' => $animeTitle,
+                    'episode_number' => (float) $epNum,
+                    'slug' => $animeSlug . '-' . $epNum,
+                    'anime_slug' => $animeSlug,
+                    'full_url' => 'https://anime.oploverz.ac/series/' . $animeSlug . '/' . $epNum
+                ];
+            }
+        }
+
+        // Jika regex spesifik gagal, coba cari pola JSON yang lebih umum
+        if (empty($episodes)) {
+            if (preg_match('/latestEpisodes\s*:\s*(\[.*?\])\s*,\s*meta/s', $html, $matches)) {
+                $json = $matches[1];
+                $jsonCleaned = preg_replace('/(\w+):/', '"$1":', $json);
+                $jsonCleaned = preg_replace('/:\s*undefined/', ':null', $jsonCleaned);
+                $jsonCleaned = str_replace("'", '"', $jsonCleaned);
+                $data = json_decode($jsonCleaned, true);
+
+                if ($data) {
+                    foreach ($data as $item) {
+                        $slug = $item['series']['slug'] ?? '';
+                        $epNum = $item['episodeNumber'] ?? '';
+                        $episodes[] = [
+                            'anime_title' => $item['series']['title'] ?? 'Unknown',
+                            'episode_number' => (float) $epNum,
+                            'slug' => $slug . '-' . $epNum,
+                            'anime_slug' => $slug,
+                            'full_url' => 'https://anime.oploverz.ac/series/' . $slug . '/' . $epNum
+                        ];
+                    }
+                }
+            }
+        }
+
+        // Fallback ke crawler jika JSON tidak ditemukan
+        if (empty($episodes)) {
+            $crawler->filter('div.group.relative.cursor-pointer.flex-shrink-0')->each(function (Crawler $node) use (&$episodes) {
+                $linkNode = $node->filter('a')->first();
+                $titleNode = $node->filter('h3')->first();
+                $epNode = $node->filter('span.inline-block.rounded.bg-primary')->first();
+
+                if ($titleNode->count() > 0 && $epNode->count() > 0) {
+                    $fullTitle = $titleNode->text();
+                    $epText = $epNode->text();
+                    
+                    preg_match('/[\d\.]+/', $epText, $matches);
+                    $epNumber = isset($matches[0]) ? (float) $matches[0] : 0;
+
+                    $href = $linkNode->count() > 0 ? $linkNode->attr('href') : '';
+                    $slug = Str::afterLast(rtrim($href, '/'), '/');
+
+                    $episodes[] = [
+                        'anime_title' => $fullTitle,
+                        'episode_number' => $epNumber,
+                        'slug' => $slug,
+                        'full_url' => $href
+                    ];
+                }
+            });
+        }
+
+        return $episodes;
+    }
+
+    /**
      * Scrape anime details from detail page.
      */
     public function scrapeAnimeDetail(string $html): array
