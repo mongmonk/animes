@@ -12,11 +12,22 @@ class AnimeController extends Controller
     {
         $latestAnimes = Anime::with('genres')->latest()->take(12)->get();
         $latestEpisodes = Episode::with('anime')->latest()->take(12)->get();
-        $trendingAnime = Anime::with('genres')->orderBy('rating', 'desc')->first();
+        $sliderAnimes = Anime::with('genres')
+            ->where('status', 'Berlangsung')
+            ->inRandomOrder()
+            ->take(5)
+            ->get();
+        
+        // Fallback jika tidak ada anime "Berlangsung"
+        if ($sliderAnimes->isEmpty()) {
+            $sliderAnimes = Anime::with('genres')->orderBy('rating', 'desc')->take(5)->get();
+        }
+
+        $trendingAnime = $sliderAnimes->first();
         $topRatedAnimes = Anime::with('genres')->orderBy('rating', 'desc')->take(6)->get();
         $genres = \App\Models\Genre::inRandomOrder()->take(10)->get();
         
-        return view('home', compact('latestAnimes', 'latestEpisodes', 'trendingAnime', 'topRatedAnimes', 'genres'));
+        return view('home', compact('latestAnimes', 'latestEpisodes', 'sliderAnimes', 'trendingAnime', 'topRatedAnimes', 'genres'));
     }
 
     public function search(Request $request)

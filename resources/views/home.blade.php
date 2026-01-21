@@ -3,37 +3,83 @@
 @section('title', 'Homepage')
 
 @section('content')
-    <!-- Hero Section -->
-    @if($trendingAnime)
+    <!-- Hero Slider Section -->
+    @if($sliderAnimes->isNotEmpty())
     <section class="relative w-full rounded-2xl overflow-hidden shadow-2xl group">
-        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" 
-             style='background-image: url("{{ Str::startsWith($trendingAnime->poster_url, 'posters/') ? asset('storage/' . $trendingAnime->poster_url) : $trendingAnime->poster_url }}");'>
-        </div>
-        <!-- Gradient Overlay -->
-        <div class="absolute inset-0 bg-gradient-to-r from-background-dark/95 via-background-dark/60 to-transparent"></div>
-        <div class="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent"></div>
-        <div class="relative z-10 flex flex-col justify-end min-h-[500px] md:min-h-[600px] p-6 md:p-12 lg:p-16 max-w-3xl">
-            <span class="inline-flex items-center rounded-md bg-primary/20 px-2 py-1 text-xs font-medium text-primary ring-1 ring-inset ring-primary/30 w-fit mb-4">
-                Trending #1
-            </span>
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white mb-4 leading-tight">
-                {{ $trendingAnime->title }}
-            </h1>
-            <p class="text-base md:text-lg text-gray-300 mb-8 line-clamp-3 max-w-2xl">
-                {{ $trendingAnime->synopsis }}
-            </p>
-            <div class="flex flex-wrap gap-4">
-                <a href="{{ route('anime.detail', $trendingAnime->slug) }}" class="flex items-center gap-2 px-6 py-3.5 bg-primary hover:bg-primary/90 text-white rounded-xl font-bold transition-all transform hover:-translate-y-0.5 shadow-lg shadow-primary/25">
-                    <span class="material-symbols-outlined filled">play_arrow</span>
-                    Watch Now
-                </a>
-                <button class="flex items-center gap-2 px-6 py-3.5 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white rounded-xl font-bold transition-all border border-white/10">
-                    <span class="material-symbols-outlined">add</span>
-                    My List
-                </button>
+        <div class="swiper hero-slider">
+            <div class="swiper-wrapper">
+                @foreach($sliderAnimes as $anime)
+                <div class="swiper-slide relative">
+                    <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700"
+                         style='background-image: url("{{ Str::startsWith($anime->poster_url, 'posters/') ? asset('storage/' . $anime->poster_url) : $anime->poster_url }}");'>
+                    </div>
+                    <!-- Gradient Overlay -->
+                    <div class="absolute inset-0 bg-gradient-to-r from-background-dark/95 via-background-dark/60 to-transparent"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent"></div>
+                    <div class="relative z-10 flex flex-col justify-end min-h-[500px] md:min-h-[600px] p-6 md:p-12 lg:p-16 max-w-3xl">
+                        <span class="inline-flex items-center rounded-md bg-primary/20 px-2 py-1 text-xs font-medium text-primary ring-1 ring-inset ring-primary/30 w-fit mb-4 uppercase tracking-wider">
+                            Berlangsung
+                        </span>
+                        <h1 class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white mb-4 leading-tight">
+                            {{ $anime->title }}
+                        </h1>
+                        <p class="text-base md:text-lg text-gray-300 mb-8 line-clamp-3 max-w-2xl">
+                            {{ $anime->synopsis }}
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="{{ route('anime.detail', $anime->slug) }}" class="flex items-center gap-2 px-6 py-3.5 bg-primary hover:bg-primary/90 text-white rounded-xl font-bold transition-all transform hover:-translate-y-0.5 shadow-lg shadow-primary/25">
+                                <span class="material-symbols-outlined filled">play_arrow</span>
+                                Watch Now
+                            </a>
+                            <button class="flex items-center gap-2 px-6 py-3.5 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white rounded-xl font-bold transition-all border border-white/10">
+                                <span class="material-symbols-outlined">add</span>
+                                My List
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
             </div>
+            <!-- Slider Pagination -->
+            <div class="swiper-pagination !bottom-8 !text-left !px-6 md:!px-12 lg:!px-16"></div>
         </div>
     </section>
+
+    <style>
+        .swiper-pagination-bullet {
+            background: #fff !important;
+            opacity: 0.5;
+            width: 10px;
+            height: 10px;
+            transition: all 0.3s ease;
+        }
+        .swiper-pagination-bullet-active {
+            opacity: 1;
+            background: #4725f4 !important;
+            width: 30px;
+            border-radius: 5px;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            new Swiper('.hero-slider', {
+                loop: true,
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                effect: 'fade',
+                fadeEffect: {
+                    crossFade: true
+                },
+            });
+        });
+    </script>
     @endif
 
     <!-- Genre Filters -->
