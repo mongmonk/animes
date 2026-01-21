@@ -12,9 +12,9 @@
             <span class="text-white">Episode {{ $episode->episode_number }}</span>
         </nav>
 
-        <div class="bg-black aspect-video rounded-2xl overflow-hidden shadow-2xl mb-8 ring-1 ring-white/10">
+        <div class="bg-black aspect-video rounded-2xl overflow-hidden shadow-2xl mb-4 ring-1 ring-white/10">
             @if($episode->video_embed_url)
-                <iframe src="{{ $episode->video_embed_url }}" class="w-full h-full" frameborder="0" allowfullscreen></iframe>
+                <iframe id="video-player" src="{{ $episode->video_embed_url }}" class="w-full h-full" frameborder="0" allowfullscreen></iframe>
             @else
                 <div class="w-full h-full flex items-center justify-center text-white/50 flex-col">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-4 opacity-20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -24,6 +24,19 @@
                 </div>
             @endif
         </div>
+
+        @if($episode->videos->count() > 0)
+            <div class="flex flex-wrap gap-2 mb-8">
+                @foreach($episode->videos as $video)
+                    <button
+                        onclick="changeServer('{{ $video->url }}', this)"
+                        class="server-btn px-4 py-2 rounded-lg text-sm font-medium transition {{ $loop->first ? 'bg-accent-green text-dark-primary' : 'bg-white/5 hover:bg-white/10 text-white border border-white/5' }}"
+                    >
+                        {{ $video->source ?: 'Server ' . ($loop->iteration) }}
+                    </button>
+                @endforeach
+            </div>
+        @endif
 
         <div class="flex flex-col md:flex-row justify-between items-center gap-6 bg-dark-secondary p-6 rounded-2xl border border-white/5 mb-8 shadow-xl">
             <div class="flex-1 text-center md:text-left">
@@ -75,4 +88,20 @@
             </div>
         @endif
     </div>
+
+    <script>
+        function changeServer(url, btn) {
+            // Update iframe src
+            document.getElementById('video-player').src = url;
+            
+            // Update button styles
+            document.querySelectorAll('.server-btn').forEach(el => {
+                el.classList.remove('bg-accent-green', 'text-dark-primary');
+                el.classList.add('bg-white/5', 'hover:bg-white/10', 'text-white', 'border', 'border-white/5');
+            });
+            
+            btn.classList.remove('bg-white/5', 'hover:bg-white/10', 'text-white', 'border', 'border-white/5');
+            btn.classList.add('bg-accent-green', 'text-dark-primary');
+        }
+    </script>
 @endsection
