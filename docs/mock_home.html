@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AnimeStream - Homepage</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#4725f4",
+                        "background-light": "#f6f5f8",
+                        "background-dark": "#131022",
+                        "card-dark": "#1c1833",
+                        "card-light": "#ffffff",
+                    },
+                    fontFamily: {
+                        "display": ["Spline Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom Scrollbar Hide */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display antialiased selection:bg-primary selection:text-white">
+<div class="relative min-h-screen flex flex-col overflow-x-hidden">
+<!-- Navigation Bar -->
+<header class="sticky top-0 z-50 w-full border-b border-gray-200 dark:border-white/10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md">
+<div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
+<div class="flex h-16 items-center justify-between gap-4">
+<!-- Logo & Links -->
+<div class="flex items-center gap-8">
+<a class="flex items-center gap-2 group" href="#">
+<div class="flex items-center justify-center size-8 rounded bg-primary text-white">
+<span class="material-symbols-outlined">play_arrow</span>
+</div>
+<h2 class="text-lg font-bold tracking-tight">AnimeStream</h2>
+</a>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Home</a>
+<a class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-white transition-colors" href="#">Catalog</a>
+<a class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-white transition-colors" href="#">News</a>
+<a class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-white transition-colors" href="#">Simulcasts</a>
+</nav>
+</div>
+<!-- Search & Actions -->
+<div class="flex flex-1 items-center justify-end gap-4">
+<!-- Search Bar -->
+<div class="hidden sm:flex max-w-xs w-full">
+<div class="relative w-full text-gray-500 focus-within:text-primary">
+<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="block w-full rounded-lg border-none bg-gray-100 dark:bg-[#292249] py-2 pl-10 pr-4 text-sm text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-primary" placeholder="Search anime..." type="text"/>
+</div>
+</div>
+<!-- Mobile Search Icon -->
+<button class="sm:hidden p-2 text-gray-500 hover:text-primary">
+<span class="material-symbols-outlined">search</span>
+</button>
+<div class="flex items-center gap-2 border-l border-gray-200 dark:border-white/10 pl-4">
+<!-- Theme Toggle -->
+<button class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-[#292249] transition-colors text-gray-600 dark:text-gray-300">
+<span class="material-symbols-outlined">dark_mode</span>
+</button>
+<!-- Notifications -->
+<button class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-[#292249] transition-colors text-gray-600 dark:text-gray-300 relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-red-500 rounded-full"></span>
+</button>
+<!-- Profile -->
+<button class="ml-2 size-9 rounded-full overflow-hidden border-2 border-transparent hover:border-primary transition-all">
+<div class="w-full h-full bg-cover bg-center" data-alt="User avatar showing an anime character" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCMLY-NB4Am9RxFr7ikeX98WXBOVyEPlUtFLvkEcNXccLrJwYOzQBnihSOTCyWeREjslHPHI_qSHjgl9c9NesmVluZ6QJgG8a6Dduxc8bgPl62BRp3oAZpvK7t-GUX7wi2g4TiImtsvxXm-yXl8GsR50gi4hN12sxq7bfDdPXvWHN-qli_AmBunsIHB3lZE8rvpQpL-XncfHVIkFFXnxY4y5zobfO0Bxn0YPOQmnZcjTPbclyMVnvAQSgbbNmsaQEttzR2XXIJjHk8");'></div>
+</button>
+</div>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-grow w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-10">
+<!-- Hero Section -->
+<section class="relative w-full rounded-2xl overflow-hidden shadow-2xl group">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="Key visual art for Demon Slayer showing characters in a dramatic pose" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDn82EKdplJIVmrzk1jqbYleebsbTKrmxHWzHBczVmgNqJLyuxZlF0J1JWCzNtvEVZ1apbXK16PkWM9BJj6QOm-oePeUtg8EcL0LL-WIs-GpvJFFz0wNwTB7y_9o8L3f0RPe71z3KvtNE5nBzEFrh7MsL4U3lCQGV0iQUhY5eSaikt1eZclsxkxvv21oXo5McQYvYOQqwHJe2eodWkzWbXQr2NVF1m26uLUpiw3L-0vTLXkuiFz0hyImmVN2O5swTHtEIzchlA1ghs");'>
+</div>
+<!-- Gradient Overlay -->
+<div class="absolute inset-0 bg-gradient-to-r from-background-dark/95 via-background-dark/60 to-transparent"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent"></div>
+<div class="relative z-10 flex flex-col justify-end min-h-[500px] md:min-h-[600px] p-6 md:p-12 lg:p-16 max-w-3xl">
+<span class="inline-flex items-center rounded-md bg-primary/20 px-2 py-1 text-xs font-medium text-primary ring-1 ring-inset ring-primary/30 w-fit mb-4">
+                        Trending #1
+                    </span>
+<h1 class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white mb-4 leading-tight">
+                        Demon Slayer: <br/>Swordsmith Village Arc
+                    </h1>
+<p class="text-base md:text-lg text-gray-300 mb-8 line-clamp-3 max-w-2xl">
+                        Tanjiro's journey leads him to the Swordsmith Village, where he reunites with two Hashira, members of the Demon Slayer Corps' highest-ranking swordsmen - Mist Hashira Muichiro Tokito and Love Hashira Mitsuri Kanroji.
+                    </p>
+<div class="flex flex-wrap gap-4">
+<button class="flex items-center gap-2 px-6 py-3.5 bg-primary hover:bg-primary/90 text-white rounded-xl font-bold transition-all transform hover:-translate-y-0.5 shadow-lg shadow-primary/25">
+<span class="material-symbols-outlined filled">play_arrow</span>
+                            Watch S3 Ep1
+                        </button>
+<button class="flex items-center gap-2 px-6 py-3.5 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white rounded-xl font-bold transition-all border border-white/10">
+<span class="material-symbols-outlined">add</span>
+                            My List
+                        </button>
+</div>
+</div>
+</section>
+<!-- Genre Filters -->
+<section class="w-full">
+<div class="flex gap-3 overflow-x-auto no-scrollbar pb-2">
+<button class="flex-shrink-0 px-4 py-2 rounded-full bg-primary text-white text-sm font-semibold">All</button>
+<button class="flex-shrink-0 px-4 py-2 rounded-full bg-white dark:bg-card-dark border border-gray-200 dark:border-white/5 hover:border-primary dark:hover:border-primary text-gray-700 dark:text-gray-300 hover:text-primary transition-colors text-sm font-medium">Action</button>
+<button class="flex-shrink-0 px-4 py-2 rounded-full bg-white dark:bg-card-dark border border-gray-200 dark:border-white/5 hover:border-primary dark:hover:border-primary text-gray-700 dark:text-gray-300 hover:text-primary transition-colors text-sm font-medium">Adventure</button>
+<button class="flex-shrink-0 px-4 py-2 rounded-full bg-white dark:bg-card-dark border border-gray-200 dark:border-white/5 hover:border-primary dark:hover:border-primary text-gray-700 dark:text-gray-300 hover:text-primary transition-colors text-sm font-medium">Comedy</button>
+<button class="flex-shrink-0 px-4 py-2 rounded-full bg-white dark:bg-card-dark border border-gray-200 dark:border-white/5 hover:border-primary dark:hover:border-primary text-gray-700 dark:text-gray-300 hover:text-primary transition-colors text-sm font-medium">Fantasy</button>
+<button class="flex-shrink-0 px-4 py-2 rounded-full bg-white dark:bg-card-dark border border-gray-200 dark:border-white/5 hover:border-primary dark:hover:border-primary text-gray-700 dark:text-gray-300 hover:text-primary transition-colors text-sm font-medium">Sci-Fi</button>
+<button class="flex-shrink-0 px-4 py-2 rounded-full bg-white dark:bg-card-dark border border-gray-200 dark:border-white/5 hover:border-primary dark:hover:border-primary text-gray-700 dark:text-gray-300 hover:text-primary transition-colors text-sm font-medium">Slice of Life</button>
+<button class="flex-shrink-0 px-4 py-2 rounded-full bg-white dark:bg-card-dark border border-gray-200 dark:border-white/5 hover:border-primary dark:hover:border-primary text-gray-700 dark:text-gray-300 hover:text-primary transition-colors text-sm font-medium">Horror</button>
+</div>
+</section>
+<!-- Currently Airing Section -->
+<section class="flex flex-col gap-6">
+<div class="flex items-center justify-between">
+<h2 class="text-2xl font-bold tracking-tight">Currently Airing</h2>
+<a class="text-sm font-medium text-primary hover:text-primary/80 flex items-center gap-1" href="#">
+                        View All <span class="material-symbols-outlined text-sm">arrow_forward_ios</span>
+</a>
+</div>
+<div class="w-full overflow-x-auto no-scrollbar pb-6 -mx-4 px-4 md:mx-0 md:px-0">
+<div class="flex gap-4 md:gap-6 min-w-max">
+<!-- Card 1 -->
+<div class="group relative w-44 md:w-56 cursor-pointer flex-shrink-0 flex flex-col gap-3">
+<div class="relative aspect-[2/3] w-full overflow-hidden rounded-xl bg-card-dark shadow-lg">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Poster art for Jujutsu Kaisen anime featuring main characters" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBeB4zk3IGznVxEHbO6l-cBhDtJDNIDVFsHjKLPbmhh83VjvKaXCFxP_QuYK_BPNNiAM8KqO-rJid_Hi_rwURqrrm3bQ2L1DcivnEZATOPK_kRGAmLW5eDy6Hm35e-I2xWyZtvIlUOoQPfFjZfmMyT_ws3w9g-DOKCQwMUeIZJ_yjzmOXP4FJPv-BsxuOEVmQ9yHaTGNABzO3TTTGF02FCSQd_pmUq4ce3c9F4zVE2awnCzfyf7ixPr2QbedhWIjjW--zvoaVhjyhQ");'></div>
+<div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors"></div>
+<div class="absolute bottom-2 left-2 right-2">
+<span class="inline-block rounded bg-primary px-2 py-0.5 text-xs font-bold text-white shadow-sm">Ep 23</span>
+</div>
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<div class="size-12 rounded-full bg-primary/90 flex items-center justify-center text-white backdrop-blur-sm shadow-xl transform scale-75 group-hover:scale-100 transition-transform">
+<span class="material-symbols-outlined filled">play_arrow</span>
+</div>
+</div>
+</div>
+<div>
+<h3 class="font-bold text-base line-clamp-1 group-hover:text-primary transition-colors">Jujutsu Kaisen</h3>
+<p class="text-xs text-gray-500 dark:text-gray-400">Action, Supernatural</p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group relative w-44 md:w-56 cursor-pointer flex-shrink-0 flex flex-col gap-3">
+<div class="relative aspect-[2/3] w-full overflow-hidden rounded-xl bg-card-dark shadow-lg">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Poster art for One Piece anime featuring Luffy" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCpFicUvtcPIYCvSTrzRBPeGFDM1EyiFK1Ae7mp6JRxPFIhIYQbPPRBCIQpPNxizxWoJ1YEh6vwLrTEJo0P34zLWggt6sX8WIMuw0SaNvIkUke4pALMdxjpBV8C49xXX_EVn3XTtqTWJP499tTg2tqT7iy3jGlQ_gHYNpJzqFxtZ-JP8KLmJp3GHDnGZgHeoQB_QCSsdsmFgFA3cF9Cp_FtmwTBne9bG8wQpKp_iX94Q-D3M05-uB1snLgdfXbKFzRayjlWoucG_Bs");'></div>
+<div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors"></div>
+<div class="absolute bottom-2 left-2 right-2">
+<span class="inline-block rounded bg-primary px-2 py-0.5 text-xs font-bold text-white shadow-sm">Ep 1089</span>
+</div>
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<div class="size-12 rounded-full bg-primary/90 flex items-center justify-center text-white backdrop-blur-sm shadow-xl transform scale-75 group-hover:scale-100 transition-transform">
+<span class="material-symbols-outlined filled">play_arrow</span>
+</div>
+</div>
+</div>
+<div>
+<h3 class="font-bold text-base line-clamp-1 group-hover:text-primary transition-colors">One Piece</h3>
+<p class="text-xs text-gray-500 dark:text-gray-400">Adventure, Fantasy</p>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group relative w-44 md:w-56 cursor-pointer flex-shrink-0 flex flex-col gap-3">
+<div class="relative aspect-[2/3] w-full overflow-hidden rounded-xl bg-card-dark shadow-lg">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Poster art for Spy x Family anime" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBDaNUUCv8OmpLnCx4Sf0K73Ge-gOJ0S3-MJldUUGcW2DfFN5zPVcusv3BRBE_B4xCMwpZMlhJBB6KsqDYKZd797gzjTZEdG3p6gcfoQ5Dz_5NJgGx_n3DI9OaOWL0iZpZko2-ntP_rCNUgfNWV5YQSxFVR95E-zdAScytRDOa5TmgE-hJ6-7zX31zTlJti-UaswZxEAOLS8pl4IBYU4rfDlZh6O9eFc3zJ2Mn-GoRRYgHhcdHOrCiZXug6YpSxnZlza6jZ3TQcY2U");'></div>
+<div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors"></div>
+<div class="absolute bottom-2 left-2 right-2">
+<span class="inline-block rounded bg-primary px-2 py-0.5 text-xs font-bold text-white shadow-sm">Ep 12</span>
+</div>
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<div class="size-12 rounded-full bg-primary/90 flex items-center justify-center text-white backdrop-blur-sm shadow-xl transform scale-75 group-hover:scale-100 transition-transform">
+<span class="material-symbols-outlined filled">play_arrow</span>
+</div>
+</div>
+</div>
+<div>
+<h3 class="font-bold text-base line-clamp-1 group-hover:text-primary transition-colors">Spy x Family</h3>
+<p class="text-xs text-gray-500 dark:text-gray-400">Comedy, Action</p>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="group relative w-44 md:w-56 cursor-pointer flex-shrink-0 flex flex-col gap-3">
+<div class="relative aspect-[2/3] w-full overflow-hidden rounded-xl bg-card-dark shadow-lg">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Poster art for Chainsaw Man anime" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuALR9l2h2f9aGRzUL1_IOTIODYgb3L1JGmDXzOUxAZ1UZzKHKQcKzdLLiT9AgRsL4xx3Db5Hn5KeW9F8x1SasxOBwHdrp8A68gqXDYoWG263a6S9gTTKofNOuWU7u1sKpAOBp9fw6E_CJeZa7lShiDsGu6XCyaQbZBdVfL9X4EmKl0iSu-XjfB6E544AgmuqGxnwawVBCPw_q2cwW-Q2-B-HwtpKJHBEQWwZzlK-1qmx7FgqJxGkLsL-t6FJd_O6AKJeLdVb8RR0I0");'></div>
+<div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors"></div>
+<div class="absolute bottom-2 left-2 right-2">
+<span class="inline-block rounded bg-primary px-2 py-0.5 text-xs font-bold text-white shadow-sm">Ep 12</span>
+</div>
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<div class="size-12 rounded-full bg-primary/90 flex items-center justify-center text-white backdrop-blur-sm shadow-xl transform scale-75 group-hover:scale-100 transition-transform">
+<span class="material-symbols-outlined filled">play_arrow</span>
+</div>
+</div>
+</div>
+<div>
+<h3 class="font-bold text-base line-clamp-1 group-hover:text-primary transition-colors">Chainsaw Man</h3>
+<p class="text-xs text-gray-500 dark:text-gray-400">Action, Horror</p>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="group relative w-44 md:w-56 cursor-pointer flex-shrink-0 flex flex-col gap-3">
+<div class="relative aspect-[2/3] w-full overflow-hidden rounded-xl bg-card-dark shadow-lg">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Poster art for Blue Lock anime" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBqk6ry1zFA9Pyi8o8tQa9437FkvnEEm40JWsyVRC46lZ1xpa08rdoPWVP6gB3CY9FWGqB4A-vzBf8eHonI5P6ScUB7yKcfSGUY1voofmqOpfIRyIP4pTPGxW7RByFgxvdP3CmviAu_DiqRGKc3rOG6-QqXcbEGwVxpjeouSUXZY0ktvh8_c2KsSmMshSmfit7AShMKPe11Sm-MQRP3EaOGbjwhniqAcBWgSO4tjLlVvscD4B_wC3eK3IDOiVQRSlWSfTHV6WGDDzk");'></div>
+<div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors"></div>
+<div class="absolute bottom-2 left-2 right-2">
+<span class="inline-block rounded bg-primary px-2 py-0.5 text-xs font-bold text-white shadow-sm">Ep 20</span>
+</div>
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<div class="size-12 rounded-full bg-primary/90 flex items-center justify-center text-white backdrop-blur-sm shadow-xl transform scale-75 group-hover:scale-100 transition-transform">
+<span class="material-symbols-outlined filled">play_arrow</span>
+</div>
+</div>
+</div>
+<div>
+<h3 class="font-bold text-base line-clamp-1 group-hover:text-primary transition-colors">Blue Lock</h3>
+<p class="text-xs text-gray-500 dark:text-gray-400">Sports, Thriller</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Top Rated Grid -->
+<section class="flex flex-col gap-6">
+<div class="flex items-center justify-between">
+<h2 class="text-2xl font-bold tracking-tight">Top Rated</h2>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 md:gap-6">
+<!-- Grid Item 1 -->
+<div class="group relative cursor-pointer flex flex-col gap-3">
+<div class="relative aspect-[2/3] w-full overflow-hidden rounded-xl bg-card-dark shadow-lg">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Poster for Fullmetal Alchemist Brotherhood" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBeekD04jvpCw7KBW3yzg5IaXq2iX49wAvV2OOA9_XDLfQny6SBdr8HzzQjSYpCjDgpEoHpprhJTWVoxfrLbKdTXwQXj2xsO-Arh6uYWBLM9cqdt21uvilnQuKCUPjTlaPHett61bsL2qGR0YjFm24M88fJIeY_Wdh1Czh8z9Jy3g-pC0PJAO8i7uzgshzU6nMpA4PDmNVW2AnKBUYPEGPFBRCTSmWs4ymJWmJij7dXyftLbFgTjg6RLpBJHTCGfflJBAJGnZdtPC8");'></div>
+<!-- Rating Badge -->
+<div class="absolute top-2 left-2">
+<span class="flex items-center gap-1 rounded bg-black/60 backdrop-blur-md px-1.5 py-0.5 text-xs font-bold text-yellow-400 border border-white/10">
+<span class="material-symbols-outlined text-[14px] filled">star</span>
+                                    9.8
+                                </span>
+</div>
+</div>
+<div>
+<h3 class="font-bold text-sm md:text-base line-clamp-1 group-hover:text-primary transition-colors">Fullmetal Alchemist</h3>
+<p class="text-xs text-gray-500 dark:text-gray-400">Adventure, Drama</p>
+</div>
+</div>
+<!-- Grid Item 2 -->
+<div class="group relative cursor-pointer flex flex-col gap-3">
+<div class="relative aspect-[2/3] w-full overflow-hidden rounded-xl bg-card-dark shadow-lg">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Poster for Steins Gate" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDcTRw7hc73bpuGjxtzg2ZJKoL3eCRdil6wma6upYo3gSqGzejegI_UiF0NLFln6MjzYKgYXpr8RXXWIH_MfU1mumZ6CQ1DceX_r_O673gyJwmOeO1V_WttpRh_6QEgyNbIWgLf3siK9e2LtB2dglRMIHInnX-cblRfxjO9QM2yicpvXG66RUfoe5D9JDGc9ghEMGjo2Jwkz68S1YwMvqdE8Dpgs4pJJwDLjZktVz4i328oReGHWg4hlx3ZbEk0wdhM_SD_X_p0QvY");'></div>
+<div class="absolute top-2 left-2">
+<span class="flex items-center gap-1 rounded bg-black/60 backdrop-blur-md px-1.5 py-0.5 text-xs font-bold text-yellow-400 border border-white/10">
+<span class="material-symbols-outlined text-[14px] filled">star</span>
+                                    9.6
+                                </span>
+</div>
+</div>
+<div>
+<h3 class="font-bold text-sm md:text-base line-clamp-1 group-hover:text-primary transition-colors">Steins;Gate</h3>
+<p class="text-xs text-gray-500 dark:text-gray-400">Sci-Fi, Thriller</p>
+</div>
+</div>
+<!-- Grid Item 3 -->
+<div class="group relative cursor-pointer flex flex-col gap-3">
+<div class="relative aspect-[2/3] w-full overflow-hidden rounded-xl bg-card-dark shadow-lg">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Poster for Attack on Titan" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDpaBz1o5TZIwBYP5_Lxp-bNuaSBDwtScLnII8wn2HCUr2ZNJprLdZ0Jd0d7HCEQXdHFELfQUGG-RwFcj9LkqN6jKPWLQtPBxUcEI1meJwHX01IbPfJkddugaYO8lWgUoB8uAToaPVuEW9s_mu9ffMJ-5doS224WY2z_f01CP2dkFwwaY1Zyyj3gL3hO67GwsM24HnjDCpxJV4so-2VOYJO_ZVQKRNB9h_rDRNRwLmq-ZYZfSNMo0oG71b3ssRlTmoYXC_j9A07wV0");'></div>
+<div class="absolute top-2 left-2">
+<span class="flex items-center gap-1 rounded bg-black/60 backdrop-blur-md px-1.5 py-0.5 text-xs font-bold text-yellow-400 border border-white/10">
+<span class="material-symbols-outlined text-[14px] filled">star</span>
+                                    9.5
+                                </span>
+</div>
+</div>
+<div>
+<h3 class="font-bold text-sm md:text-base line-clamp-1 group-hover:text-primary transition-colors">Attack on Titan</h3>
+<p class="text-xs text-gray-500 dark:text-gray-400">Action, Mystery</p>
+</div>
+</div>
+<!-- Grid Item 4 -->
+<div class="group relative cursor-pointer flex flex-col gap-3">
+<div class="relative aspect-[2/3] w-full overflow-hidden rounded-xl bg-card-dark shadow-lg">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Poster for Hunter x Hunter" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuASgnjah1LyYrLllPnyWhVf2_16U7soKrmkSBFUOebCsIcgo9M-Wi1Mi9FXZTlhYNdA_PFmoOalvCEJjzvwbOTn6gcpLAbL2JTzlV7mDkq2a3zrqykjQ-rVP0zUg71ZJh8AFB8mdTI1LdbMmOrR22a1UFqbiu_miPZgTzCdLG2VdqxG4fI9pwgi2aFQgciohve9lFKej__ycvQRu3xlRXfgGBr8mwBBNaIlb9fos9GGa-auaXuipKZaHbQBbHZfTTyVlBNvqB48Uuo");'></div>
+<div class="absolute top-2 left-2">
+<span class="flex items-center gap-1 rounded bg-black/60 backdrop-blur-md px-1.5 py-0.5 text-xs font-bold text-yellow-400 border border-white/10">
+<span class="material-symbols-outlined text-[14px] filled">star</span>
+                                    9.5
+                                </span>
+</div>
+</div>
+<div>
+<h3 class="font-bold text-sm md:text-base line-clamp-1 group-hover:text-primary transition-colors">Hunter x Hunter</h3>
+<p class="text-xs text-gray-500 dark:text-gray-400">Adventure, Fantasy</p>
+</div>
+</div>
+<!-- Grid Item 5 -->
+<div class="group relative cursor-pointer flex flex-col gap-3">
+<div class="relative aspect-[2/3] w-full overflow-hidden rounded-xl bg-card-dark shadow-lg">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Poster for Bleach" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBj7-qdn6lYJqVJEnZY5zm6ZnSGlIPTccPDofc2oymPl2yBvcMasQLNKin4YiMkceCL3sMdH98Qsg6rZj8lT5jvzcMXodQqu8rR5oNcMe53YnGjRzv7C3b-4LHQvq7hYhMTnpLRbJ0d-k911k4q1cM9Vpf3vyEQB9zGoxnF41VPUnsNMCWgsIhwCtFiiAReA0KlQDoZSC3COwW8LBn-Pqoy096kEsqwyBiids_MmFOLBrPOaw1bMYxjNfxvV8NvWP883HqRWMKsAFs");'></div>
+<div class="absolute top-2 left-2">
+<span class="flex items-center gap-1 rounded bg-black/60 backdrop-blur-md px-1.5 py-0.5 text-xs font-bold text-yellow-400 border border-white/10">
+<span class="material-symbols-outlined text-[14px] filled">star</span>
+                                    9.4
+                                </span>
+</div>
+</div>
+<div>
+<h3 class="font-bold text-sm md:text-base line-clamp-1 group-hover:text-primary transition-colors">Bleach: TYBW</h3>
+<p class="text-xs text-gray-500 dark:text-gray-400">Action, Supernatural</p>
+</div>
+</div>
+<!-- Grid Item 6 (Hidden on mobile grid) -->
+<div class="group relative cursor-pointer flex flex-col gap-3">
+<div class="relative aspect-[2/3] w-full overflow-hidden rounded-xl bg-card-dark shadow-lg">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Poster for Violet Evergarden" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCajPite3QCF6EYBI4RoPZx9JD2pr1CY0PXtT1VE8VfnpAcjyzs9z0s5YBfFBbYq9xjYkwjCkYQ39eTBYVrHP84ZoB2K0H_sJgPzBEpnQKX_jP0yuLl7xhb2yAEfKfQM_facL7GRIYpbV_29dnzs9U0dePcpMmwVXDFDnRFm-7FdebuPZfbcKwWmWqfLkb4sl-gK2GVYG0mxgzluy10VxGyZ5Q4XkGBFaBPK-FIcc8rN8kYDI5aea3L2THJqIq4_q50IYa0cp2AN28");'></div>
+<div class="absolute top-2 left-2">
+<span class="flex items-center gap-1 rounded bg-black/60 backdrop-blur-md px-1.5 py-0.5 text-xs font-bold text-yellow-400 border border-white/10">
+<span class="material-symbols-outlined text-[14px] filled">star</span>
+                                    9.3
+                                </span>
+</div>
+</div>
+<div>
+<h3 class="font-bold text-sm md:text-base line-clamp-1 group-hover:text-primary transition-colors">Violet Evergarden</h3>
+<p class="text-xs text-gray-500 dark:text-gray-400">Drama, Fantasy</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="mt-20 border-t border-gray-200 dark:border-white/10 bg-white dark:bg-[#18152c]">
+<div class="mx-auto max-w-[1440px] px-4 py-12 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="col-span-1 md:col-span-1">
+<div class="flex items-center gap-2 mb-4">
+<div class="flex items-center justify-center size-8 rounded bg-primary text-white">
+<span class="material-symbols-outlined">play_arrow</span>
+</div>
+<h2 class="text-lg font-bold tracking-tight">AnimeStream</h2>
+</div>
+<p class="text-sm text-gray-500 dark:text-gray-400">The best place to stream your favorite anime anytime, anywhere. Experience the magic of animation.</p>
+</div>
+<div>
+<h3 class="text-sm font-semibold mb-4">Navigation</h3>
+<ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400">
+<li><a class="hover:text-primary transition-colors" href="#">Home</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Popular</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">New Releases</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Genres</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-sm font-semibold mb-4">Support</h3>
+<ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400">
+<li><a class="hover:text-primary transition-colors" href="#">Help Center</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Terms of Service</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Contact Us</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-sm font-semibold mb-4">Get the App</h3>
+<div class="flex flex-col gap-3">
+<button class="flex items-center gap-3 bg-gray-900 dark:bg-white dark:text-black text-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined">ios</span>
+<div class="text-left">
+<div class="text-[10px] uppercase leading-none">Download on the</div>
+<div class="text-sm font-bold leading-none">App Store</div>
+</div>
+</button>
+<button class="flex items-center gap-3 bg-gray-900 dark:bg-white dark:text-black text-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined">android</span>
+<div class="text-left">
+<div class="text-[10px] uppercase leading-none">Get it on</div>
+<div class="text-sm font-bold leading-none">Google Play</div>
+</div>
+</button>
+</div>
+</div>
+</div>
+<div class="mt-12 pt-8 border-t border-gray-200 dark:border-white/5 text-center text-sm text-gray-500 dark:text-gray-400">
+<p>© 2024 AnimeStream. All rights reserved.</p>
+</div>
+</div>
+</footer>
+</div>
+</body></html>

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
+    <meta charset="utf-8"/>
     <script>
         if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
@@ -8,88 +9,209 @@
             document.documentElement.classList.remove('dark');
         }
     </script>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', 'AnimeStream') | Portal Anime Sub Indo</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta name="theme-color" content="#4725f4">
+    <meta name="description" content="Nonton anime subtitle Indonesia terlengkap dan terupdate hanya di AnimeStream. Nikmati streaming anime favorit Anda dengan kualitas terbaik.">
+    <meta name="keywords" content="nonton anime, streaming anime, anime sub indo, anime stream, anime terbaru">
     
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200..1000&display=swap" rel="stylesheet">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="@yield('title', 'AnimeStream') - Portal Anime">
+    <meta property="og:description" content="Nonton anime subtitle Indonesia terlengkap dan terupdate hanya di AnimeStream.">
+    <meta property="og:image" content="{{ asset('icon.svg') }}">
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ url()->current() }}">
+    <meta property="twitter:title" content="@yield('title', 'AnimeStream') - Portal Anime">
+    <meta property="twitter:description" content="Nonton anime subtitle Indonesia terlengkap dan terupdate hanya di AnimeStream.">
+    <meta property="twitter:image" content="{{ asset('icon.svg') }}">
+
     <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="{{ asset('icon.svg') }}">
+    <title>@yield('title', 'AnimeStream') - Portal Anime</title>
+    <!-- Google Fonts -->
+    <link rel="icon" type="image/svg+xml" href="/icon.svg">
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#4725f4",
+                        "background-light": "#f6f5f8",
+                        "background-dark": "#131022",
+                        "card-dark": "#1c1833",
+                        "card-light": "#ffffff",
+                    },
+                    fontFamily: {
+                        "display": ["Spline Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
     <style>
-        body { font-family: 'Mulish', sans-serif; }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
     </style>
 </head>
-<body class="bg-dark-primary min-h-screen flex flex-col transition-colors duration-300">
-    <nav class="sticky top-0 z-50 bg-dark-secondary py-3 shadow-lg transition-colors duration-300">
-        <div class="container mx-auto px-4 flex justify-between items-center">
-            <a href="/" class="text-2xl font-bold text-accent-green">AnimeStream</a>
-            <div class="hidden md:flex space-x-6">
-                <a href="/" class="hover:text-accent-green transition">Beranda</a>
-                <a href="/series" class="hover:text-accent-green transition">Daftar Anime</a>
-                <a href="#" class="hover:text-accent-green transition">Jadwal</a>
-            </div>
-            <div class="flex items-center space-x-4" x-data="{
-                darkMode: document.documentElement.classList.contains('dark'),
-                searchOpen: false,
-                toggleTheme() {
-                    this.darkMode = !this.darkMode;
-                    if (this.darkMode) {
-                        document.documentElement.classList.add('dark');
-                        localStorage.setItem('theme', 'dark');
-                    } else {
-                        document.documentElement.classList.remove('dark');
-                        localStorage.setItem('theme', 'light');
-                    }
-                }
-            }">
-                <form x-show="searchOpen"
-                      x-transition:enter="transition ease-out duration-200"
-                      x-transition:enter-start="opacity-0 scale-95"
-                      x-transition:enter-end="opacity-100 scale-100"
-                      action="{{ route('anime.search') }}" method="GET" class="relative">
-                    <input type="text" name="q" placeholder="Cari anime..."
-                           class="bg-dark-primary text-white border border-white/10 rounded-full px-4 py-1 focus:outline-none focus:border-accent-green w-48 md:w-64">
-                </form>
-
-                <button @click="toggleTheme" class="p-2 hover:bg-white/10 rounded-full transition text-accent-green">
-                    <!-- Sun icon -->
-                    <svg x-show="darkMode" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 18v1m9-9h1M4 12H3m15.364-6.364l.707-.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
-                    </svg>
-                    <!-- Moon icon -->
-                    <svg x-show="!darkMode" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                    </svg>
-                </button>
-                <button @click="searchOpen = !searchOpen" class="p-2 hover:bg-white/10 rounded-full transition">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                </button>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display antialiased selection:bg-primary selection:text-white" x-data="{
+    darkMode: document.documentElement.classList.contains('dark'),
+    searchOpen: false,
+    deferredPrompt: null,
+    showInstallBtn: false,
+    init() {
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            this.deferredPrompt = e;
+            this.showInstallBtn = true;
+        });
+        window.addEventListener('appinstalled', () => {
+            this.showInstallBtn = false;
+            this.deferredPrompt = null;
+        });
+    },
+    async installPWA() {
+        if (!this.deferredPrompt) return;
+        this.deferredPrompt.prompt();
+        const { outcome } = await this.deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+            this.showInstallBtn = false;
+        }
+        this.deferredPrompt = null;
+    },
+    toggleTheme() {
+        this.darkMode = !this.darkMode;
+        if (this.darkMode) {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        }
+    }
+}">
+<div class="relative min-h-screen flex flex-col overflow-x-hidden">
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-50 w-full border-b border-gray-200 dark:border-white/10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md">
+        <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
+            <div class="flex h-16 items-center justify-between gap-4">
+                <!-- Logo & Links -->
+                <div class="flex items-center gap-8">
+                    <a class="flex items-center gap-2 group" href="/">
+                        <div class="flex items-center justify-center size-8 rounded bg-primary text-white">
+                            <span class="material-symbols-outlined">play_arrow</span>
+                        </div>
+                        <h2 class="text-lg font-bold tracking-tight">AnimeStream</h2>
+                    </a>
+                    <nav class="hidden md:flex items-center gap-6">
+                        <a class="text-sm font-medium {{ request()->routeIs('home') ? 'text-primary' : 'text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-white' }} transition-colors" href="{{ route('home') }}">Home</a>
+                        <a class="text-sm font-medium {{ request()->routeIs('directory') ? 'text-primary' : 'text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-white' }} transition-colors" href="{{ route('directory') }}">Series</a>
+                        <a class="text-sm font-medium {{ request()->routeIs('popular') ? 'text-primary' : 'text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-white' }} transition-colors" href="{{ route('popular') }}">Popular</a>
+                        <a class="text-sm font-medium {{ request()->routeIs('new-releases') ? 'text-primary' : 'text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-white' }} transition-colors" href="{{ route('new-releases') }}">New Releases</a>
+                        <a class="text-sm font-medium {{ request()->routeIs('genres.*') ? 'text-primary' : 'text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-white' }} transition-colors" href="{{ route('genres.index') }}">Genre</a>
+                    </nav>
+                </div>
+                <!-- Search & Actions -->
+                <div class="flex flex-1 items-center justify-end gap-4">
+                    <!-- Search Bar -->
+                    <div class="hidden sm:flex max-w-xs w-full">
+                        <form action="{{ route('anime.search') }}" method="GET" class="relative w-full text-gray-500 focus-within:text-primary">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <span class="material-symbols-outlined text-[20px]">search</span>
+                            </div>
+                            <input name="q" class="block w-full rounded-lg border-none bg-gray-100 dark:bg-[#292249] py-2 pl-10 pr-4 text-sm text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-primary" placeholder="Search anime..." type="text" value="{{ request('q') }}"/>
+                        </form>
+                    </div>
+                    <!-- Mobile Search Icon -->
+                    <button class="sm:hidden p-2 text-gray-500 hover:text-primary" @click="searchOpen = !searchOpen">
+                        <span class="material-symbols-outlined">search</span>
+                    </button>
+                    <div class="flex items-center gap-2 border-l border-gray-200 dark:border-white/10 pl-4">
+                        <!-- Theme Toggle -->
+                        <button @click="toggleTheme" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-[#292249] transition-colors text-gray-600 dark:text-gray-300">
+                            <span class="material-symbols-outlined" x-text="darkMode ? 'light_mode' : 'dark_mode'">dark_mode</span>
+                        </button>
+                        <!-- Profile -->
+                        <button class="ml-2 size-9 rounded-full overflow-hidden border-2 border-transparent hover:border-primary transition-all">
+                            <div class="w-full h-full bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCMLY-NB4Am9RxFr7ikeX98WXBOVyEPlUtFLvkEcNXccLrJwYOzQBnihSOTCyWeREjslHPHI_qSHjgl9c9NesmVluZ6QJgG8a6Dduxc8bgPl62BRp3oAZpvK7t-GUX7wi2g4TiImtsvxXm-yXl8GsR50gi4hN12sxq7bfDdPXvWHN-qli_AmBunsIHB3lZE8rvpQpL-XncfHVIkFFXnxY4y5zobfO0Bxn0YPOQmnZcjTPbclyMVnvAQSgbbNmsaQEttzR2XXIJjHk8");'></div>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <main class="flex-grow container mx-auto px-4 py-8">
+    <main class="flex-grow w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-10">
         @yield('content')
     </main>
 
-    <footer class="bg-dark-secondary py-8 border-t border-white/10">
-        <div class="container mx-auto px-4 text-center">
-            <p class="text-sm opacity-60">&copy; {{ date('Y') }} AnimeStream. All rights reserved.</p>
+    <!-- Footer -->
+    <footer class="mt-20 border-t border-gray-200 dark:border-white/10 bg-white dark:bg-[#18152c]">
+        <div class="mx-auto max-w-[1440px] px-4 py-12 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-1">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="flex items-center justify-center size-8 rounded bg-primary text-white">
+                            <span class="material-symbols-outlined">play_arrow</span>
+                        </div>
+                        <h2 class="text-lg font-bold tracking-tight">AnimeStream</h2>
+                    </div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">The best place to stream your favorite anime anytime, anywhere. Experience the magic of animation.</p>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold mb-4">Navigation</h3>
+                    <ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400">
+                        <li><a class="{{ request()->routeIs('home') ? 'text-primary' : 'hover:text-primary' }} transition-colors" href="{{ route('home') }}">Home</a></li>
+                        <li><a class="{{ request()->routeIs('directory') ? 'text-primary' : 'hover:text-primary' }} transition-colors" href="{{ route('directory') }}">Series</a></li>
+                        <li><a class="{{ request()->routeIs('popular') ? 'text-primary' : 'hover:text-primary' }} transition-colors" href="{{ route('popular') }}">Popular</a></li>
+                        <li><a class="{{ request()->routeIs('new-releases') ? 'text-primary' : 'hover:text-primary' }} transition-colors" href="{{ route('new-releases') }}">New Releases</a></li>
+                        <li><a class="{{ request()->routeIs('genres.*') ? 'text-primary' : 'hover:text-primary' }} transition-colors" href="{{ route('genres.index') }}">Genre</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold mb-4">Support</h3>
+                    <ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400">
+                        <li><a class="hover:text-primary transition-colors" href="#">Help Center</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Terms of Service</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold mb-4">Get the App</h3>
+                    <div class="flex flex-col gap-3">
+                        <button x-show="showInstallBtn" @click="installPWA" class="flex items-center gap-3 bg-primary text-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity shadow-lg shadow-primary/20">
+                            <span class="material-symbols-outlined">download</span>
+                            <div class="text-left">
+                                <div class="text-[10px] uppercase leading-none">Install</div>
+                                <div class="text-sm font-bold leading-none">AnimeStream</div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-gray-200 dark:border-white/5 text-center text-sm text-gray-500 dark:text-gray-400">
+                <p>© {{ date('Y') }} AnimeStream. All rights reserved.</p>
+            </div>
         </div>
     </footer>
-
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js');
-            });
-        }
-    </script>
+</div>
 </body>
 </html>
