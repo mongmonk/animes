@@ -25,8 +25,13 @@ Digunakan untuk mengambil episode terbaru dari homepage secara berkala.
   - Jika anime belum ada, akan melakukan *full crawl* (detail anime + semua episode).
 
 ### B. Scraper Manual (Ingest)
-Digunakan untuk mengambil data dari URL spesifik (misal daftar semua series).
-- **Command:** `php artisan scraper:ingest --url=https://anime.oploverz.ac/series`
+Digunakan untuk mengambil data dari URL spesifik (misal daftar semua series atau satu anime saja).
+- **Command (Daftar Series):** `php artisan scraper:ingest --url=https://anime.oploverz.ac/series`
+- **Command (Satu Anime):** `php artisan scraper:ingest --url=https://anime.oploverz.ac/series/judul-anime`
+
+### C. Scraper Manual (Cron Logic)
+Jika ingin memicu logika pengecekan homepage secara manual tanpa menunggu jadwal cronjob.
+- **Command:** `php artisan scraper:cron`
 
 ## 3. Cara Menjalankan Otomatis (Cronjob)
 
@@ -38,6 +43,7 @@ Anda perlu mendaftarkan *Scheduler* Laravel ke dalam sistem `crontab`.
    ```bash
    * * * * * cd /path-ke-projek-anda && php artisan schedule:run >> /dev/null 2>&1
    ```
+   **Catatan:** Pesan *"No scheduled commands are ready to run"* saat menjalankan perintah manual adalah normal jika belum masuk waktu jadwal (menit :00 atau :30). Gunakan `php artisan schedule:list` untuk melihat jadwal.
    *(Ganti `/path-ke-projek-anda` dengan lokasi folder Laravel Anda)*.
 
 ### Di Lokal (Windows / Laragon)

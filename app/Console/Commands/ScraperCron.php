@@ -85,13 +85,16 @@ class ScraperCron extends Command
         }
 
         // Jika anime sudah ada, proses episode ini
-        $episodeUrl = $item['full_url'] ?: $detailBaseUrl . '/series/' . $item['anime_slug'] . '/' . $item['episode_number'];
+        $episodeUrl = $item['full_url'] ?: $detailBaseUrl . '/series/' . $item['anime_slug'] . '/episode/' . $item['episode_number'];
         
         try {
+            $this->info("  > Mengambil data dari: {$episodeUrl}");
             $response = Http::withoutVerifying()->get($episodeUrl);
             if ($response->successful()) {
                 $this->updateEpisodeData($response->body(), $anime, $item);
                 $this->info("  > BERHASIL: Episode {$item['episode_number']} diperbarui.");
+            } else {
+                $this->error("  > Gagal mengambil halaman episode. Status: " . $response->status());
             }
         } catch (\Exception $e) {
             $this->error("  > Gagal crawl episode: " . $e->getMessage());
@@ -142,6 +145,13 @@ class ScraperCron extends Command
                 foreach ($data['episodes'] as $ep) {
                     $this->info("    - Mengambil episode {$ep['episode_number']}...");
                     $epWatchUrl = $baseUrl . '/series/' . $ep['slug'];
+                    // Periksa apakah slug sudah mengandung '/episode/'
+                    if (!Str::contains($epWatchUrl, '/episode/')) {
+                        // Jika slug hanya angka (dari scrapeAnimeDetail), maka tambahkan /episode/
+                        if (is_numeric($ep['slug'])) {
+                            $epWatchUrl = $baseUrl . '/series/' . $item['anime_slug'] . '/episode/' . $ep['slug'];
+                        }
+                    }
                     $epResponse = Http::withoutVerifying()->get($epWatchUrl);
                     if ($epResponse->successful()) {
                         $this->updateEpisodeData($epResponse->body(), $anime, [
@@ -165,7 +175,7 @@ class ScraperCron extends Command
             [
                 'anime_id' => $anime->id,
                 'episode_number' => $item['episode_number'],
-                'title' => $item['anime_title'] . " Episode " . $item['episode_number'],
+                'title' => "Episode " . $item['episode_number'],
             ]
         );
 
