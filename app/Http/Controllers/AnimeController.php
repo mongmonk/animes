@@ -124,7 +124,7 @@ class AnimeController extends Controller
     {
         $fullSlug = $animeSlug . '/episode/' . $episodeSlug;
         
-        $episode = Episode::with(['anime.episodes', 'videos', 'downloads'])
+        $episode = Episode::with(['anime.episodes', 'anime.genres', 'videos', 'downloads'])
             ->where('slug', $fullSlug)
             ->orWhere('slug', $episodeSlug)
             ->firstOrFail();
@@ -134,7 +134,21 @@ class AnimeController extends Controller
         $prevEpisode = $anime->episodes()->where('episode_number', '<', $episode->episode_number)->orderBy('episode_number', 'desc')->first();
         $nextEpisode = $anime->episodes()->where('episode_number', '>', $episode->episode_number)->orderBy('episode_number', 'asc')->first();
 
-        return view('watch', compact('episode', 'anime', 'prevEpisode', 'nextEpisode'));
+        // Ambil related anime berdasarkan genre secara random
+        $relatedAnimes = collect();
+        if ($anime->genres->isNotEmpty()) {
+            $randomGenre = $anime->genres->random();
+            $relatedAnimes = Anime::with('genres')
+                ->whereHas('genres', function($q) use ($randomGenre) {
+                    $q->where('genres.id', $randomGenre->id);
+                })
+                ->where('id', '!=', $anime->id)
+                ->inRandomOrder()
+                ->take(6)
+                ->get();
+        }
+
+        return view('watch', compact('episode', 'anime', 'prevEpisode', 'nextEpisode', 'relatedAnimes'));
     }
 
     public function popular()

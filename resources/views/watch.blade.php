@@ -87,6 +87,93 @@
                 </div>
             </div>
         @endif
+
+        {{-- Anime Info Section --}}
+        <div class="mt-12 bg-dark-secondary rounded-2xl border border-white/5 overflow-hidden shadow-xl">
+            <div class="flex flex-col md:flex-row">
+                <div class="w-full md:w-64 shrink-0">
+                    <img src="{{ Str::startsWith($anime->poster_url, 'posters/') ? asset('storage/' . $anime->poster_url) : $anime->poster_url }}" alt="{{ $anime->title }}" class="w-full h-full object-cover aspect-[3/4]">
+                </div>
+                <div class="p-6 md:p-8 flex-1">
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        @foreach($anime->genres as $genre)
+                            @if($genre->slug)
+                                <a href="{{ route('genres.show', ['slug' => $genre->slug]) }}" class="text-xs font-bold px-3 py-1 bg-accent-green/10 text-accent-green rounded-full border border-accent-green/20 hover:bg-accent-green hover:text-dark-primary transition">
+                                    {{ $genre->name }}
+                                </a>
+                            @else
+                                <span class="text-xs font-bold px-3 py-1 bg-white/5 text-white/50 rounded-full border border-white/10">
+                                    {{ $genre->name }}
+                                </span>
+                            @endif
+                        @endforeach
+                    </div>
+                    <h2 class="text-2xl font-bold mb-4">{{ $anime->title }}</h2>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-y-4 gap-x-6 text-sm mb-6">
+                        <div>
+                            <span class="block opacity-50 text-xs uppercase mb-1">Status</span>
+                            <span class="font-medium">{{ $anime->status }}</span>
+                        </div>
+                        <div>
+                            <span class="block opacity-50 text-xs uppercase mb-1">Type</span>
+                            <span class="font-medium">{{ $anime->type }}</span>
+                        </div>
+                        <div>
+                            <span class="block opacity-50 text-xs uppercase mb-1">Rating</span>
+                            <span class="font-medium text-accent-green">★ {{ $anime->rating }}</span>
+                        </div>
+                        <div>
+                            <span class="block opacity-50 text-xs uppercase mb-1">Total Episode</span>
+                            <span class="font-medium">{{ $anime->total_episodes }}</span>
+                        </div>
+                        <div>
+                            <span class="block opacity-50 text-xs uppercase mb-1">Studio</span>
+                            <span class="font-medium">{{ $anime->studio }}</span>
+                        </div>
+                        <div>
+                            <span class="block opacity-50 text-xs uppercase mb-1">Season</span>
+                            <span class="font-medium">{{ $anime->season }} {{ $anime->year }}</span>
+                        </div>
+                    </div>
+                    <div class="prose prose-invert prose-sm max-w-none line-clamp-4 opacity-70">
+                        {!! $anime->synopsis !!}
+                    </div>
+                    <a href="{{ route('anime.detail', $anime->slug) }}" class="inline-block mt-6 text-accent-green font-bold text-sm hover:underline">
+                        Lihat Detail Selengkapnya →
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        {{-- Related Anime Section --}}
+        @if($relatedAnimes->isNotEmpty())
+            <div class="mt-12 mb-12">
+                <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+                    <span class="w-2 h-6 bg-accent-green rounded-full"></span>
+                    Rekomendasi Anime Terkait
+                </h3>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
+                    @foreach($relatedAnimes as $related)
+                        <a href="{{ route('anime.detail', $related->slug) }}" class="group block">
+                            <div class="relative aspect-[3/4] rounded-xl overflow-hidden mb-2 ring-1 ring-white/10 group-hover:ring-accent-green/50 transition">
+                                <img src="{{ Str::startsWith($related->poster_url, 'posters/') ? asset('storage/' . $related->poster_url) : $related->poster_url }}" alt="{{ $related->title }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
+                                    <span class="text-[10px] font-bold bg-accent-green text-dark-primary px-2 py-0.5 rounded">
+                                        {{ $related->type }}
+                                    </span>
+                                </div>
+                            </div>
+                            <h4 class="text-sm font-bold line-clamp-2 group-hover:text-accent-green transition">{{ $related->title }}</h4>
+                            <div class="flex items-center gap-1 mt-1 opacity-60 text-[10px]">
+                                <span>{{ $related->status }}</span>
+                                <span>•</span>
+                                <span class="text-accent-green">★ {{ $related->rating }}</span>
+                            </div>
+                        </a>
+                    @endforeach
+                </div>
+            </div>
+        @endif
     </div>
 
     <script>
