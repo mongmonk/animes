@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', "Nonton " . ($episode->title ?: $anime->title . " Episode " . $episode->episode_number))
+@section('title', "Nonton " . $anime->title . " Episode " . $episode->episode_number)
 
 @section('content')
     <div class="max-w-5xl mx-auto">
@@ -141,6 +141,43 @@
                     <a href="{{ route('anime.detail', $anime->slug) }}" class="inline-block mt-6 text-accent-green font-bold text-sm hover:underline">
                         Lihat Detail Selengkapnya →
                     </a>
+                </div>
+            </div>
+        </div>
+
+        {{-- Episode List Section --}}
+        <div class="mt-8 bg-dark-secondary rounded-2xl border border-white/5 overflow-hidden shadow-xl">
+            <div class="p-6 border-b border-white/5 flex items-center justify-between">
+                <h3 class="text-lg font-bold flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-accent-green" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
+                    </svg>
+                    Daftar Episode
+                </h3>
+                <span class="text-xs opacity-50">{{ $anime->episodes->count() }} Episode</span>
+            </div>
+            <div class="max-h-[450px] overflow-y-auto custom-scrollbar">
+                <div class="flex flex-col">
+                    @foreach($anime->episodes->sortByDesc('episode_number') as $ep)
+                        <a href="{{ route('anime.watch', ['animeSlug' => $anime->slug, 'episodeSlug' => basename($ep->slug)]) }}"
+                           class="episode-link flex items-center justify-between p-4 border-b border-white/5 transition-all duration-200 group {{ $ep->id == $episode->id ? 'bg-accent-green/10' : 'hover:bg-white/5' }}">
+                            <div class="flex items-center gap-4">
+                                <div class="episode-number w-10 h-10 flex items-center justify-center rounded-lg text-xs font-bold {{ $ep->id == $episode->id ? 'bg-accent-green text-dark-primary shadow-lg shadow-accent-green/20' : 'bg-white/5 text-accent-green' }}">
+                                    {{ $ep->episode_number }}
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="episode-title text-sm font-medium {{ $ep->id == $episode->id ? 'text-accent-green' : 'text-white/90 group-hover:text-white' }}">
+                                        {{ $anime->title }} Episode {{ $ep->episode_number }}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="opacity-30 group-hover:opacity-100 transition-opacity">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 {{ $ep->id == $episode->id ? 'text-accent-green' : 'text-white' }}" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </a>
+                    @endforeach
                 </div>
             </div>
         </div>

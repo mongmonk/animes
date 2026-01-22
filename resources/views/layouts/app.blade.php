@@ -43,6 +43,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <style>
+        .episode-link:visited .episode-title {
+            color: rgba(157, 157, 157, 0.16);
+        }
+        .text-accent-green {
+            color: #32d583!important;
+        }
+    </style>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
