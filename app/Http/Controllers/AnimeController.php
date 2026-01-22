@@ -25,7 +25,11 @@ class AnimeController extends Controller
 
         $trendingAnime = $sliderAnimes->first();
         $topRatedAnimes = Anime::with('genres')->orderBy('rating', 'desc')->take(6)->get();
-        $genres = \App\Models\Genre::inRandomOrder()->take(10)->get();
+        $genres = \App\Models\Genre::whereNotNull('slug')
+            ->where('slug', '!=', '')
+            ->inRandomOrder()
+            ->take(10)
+            ->get();
         
         return view('home', compact('latestAnimes', 'latestEpisodes', 'sliderAnimes', 'trendingAnime', 'topRatedAnimes', 'genres'));
     }
@@ -99,7 +103,21 @@ class AnimeController extends Controller
             $q->orderBy('episode_number', 'desc');
         }])->where('slug', $slug)->firstOrFail();
 
-        return view('detail', compact('anime'));
+        // Ambil 6 related anime berdasarkan salah satu genre secara random
+        $relatedAnimes = collect();
+        if ($anime->genres->isNotEmpty()) {
+            $randomGenre = $anime->genres->random();
+            $relatedAnimes = Anime::with('genres')
+                ->whereHas('genres', function($q) use ($randomGenre) {
+                    $q->where('genres.id', $randomGenre->id);
+                })
+                ->where('id', '!=', $anime->id)
+                ->inRandomOrder()
+                ->take(6)
+                ->get();
+        }
+
+        return view('detail', compact('anime', 'relatedAnimes'));
     }
 
     public function watch($animeSlug, $episodeSlug)
