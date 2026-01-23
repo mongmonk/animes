@@ -17,7 +17,7 @@ class ScraperCron extends Command
      *
      * @var string
      */
-    protected $signature = 'scraper:cron {--url=https://anime.oploverz.ac : URL homepage Oploverz}';
+    protected $signature = 'scraper:cron {--url=https://anime1.oploverz.ac : URL homepage Oploverz}';
 
     /**
      * The console command description.

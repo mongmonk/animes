@@ -53,7 +53,7 @@ class AnimeScraperService
                     'episode_number' => (float) $epNum,
                     'slug' => $animeSlug . '/episode/' . $epNum,
                     'anime_slug' => $animeSlug,
-                    'full_url' => 'https://anime.oploverz.ac/series/' . $animeSlug . '/episode/' . $epNum
+                    'full_url' => 'https://anime1.oploverz.ac/series/' . $animeSlug . '/episode/' . $epNum
                 ];
             }
         }
@@ -76,7 +76,7 @@ class AnimeScraperService
                             'episode_number' => (float) $epNum,
                             'slug' => $slug . '/episode/' . $epNum,
                             'anime_slug' => $slug,
-                            'full_url' => 'https://anime.oploverz.ac/series/' . $slug . '/episode/' . $epNum
+                            'full_url' => 'https://anime1.oploverz.ac/series/' . $slug . '/episode/' . $epNum
                         ];
                     }
                 }
