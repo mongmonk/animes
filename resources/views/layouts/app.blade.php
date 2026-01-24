@@ -11,26 +11,30 @@
     </script>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta name="theme-color" content="#4725f4">
-    <meta name="description" content="Nonton anime subtitle Indonesia terlengkap dan terupdate hanya di AnimeStream. Nikmati streaming anime favorit Anda dengan kualitas terbaik.">
-    <meta name="keywords" content="nonton anime, streaming anime, anime sub indo, anime stream, anime terbaru">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{ url()->current() }}">
+    <meta name="description" content="@yield('meta_description', 'Nonton anime subtitle Indonesia terlengkap dan terupdate hanya di AnimeStream. Nikmati streaming anime favorit Anda dengan kualitas terbaik.')">
+    <meta name="keywords" content="@yield('meta_keywords', 'nonton anime, streaming anime, anime sub indo, anime stream, anime terbaru')">
     
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
+    <meta property="og:type" content="@yield('og_type', 'website')">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:title" content="@yield('title', 'AnimeStream') - Portal Anime">
-    <meta property="og:description" content="Nonton anime subtitle Indonesia terlengkap dan terupdate hanya di AnimeStream.">
-    <meta property="og:image" content="{{ asset('icon.svg') }}">
+    <meta property="og:description" content="@yield('meta_description', 'Nonton anime subtitle Indonesia terlengkap dan terupdate hanya di AnimeStream.')">
+    <meta property="og:image" content="@yield('og_image', asset('icon.svg'))">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="{{ url()->current() }}">
     <meta property="twitter:title" content="@yield('title', 'AnimeStream') - Portal Anime">
-    <meta property="twitter:description" content="Nonton anime subtitle Indonesia terlengkap dan terupdate hanya di AnimeStream.">
-    <meta property="twitter:image" content="{{ asset('icon.svg') }}">
+    <meta property="twitter:description" content="@yield('meta_description', 'Nonton anime subtitle Indonesia terlengkap dan terupdate hanya di AnimeStream.')">
+    <meta property="twitter:image" content="@yield('og_image', asset('icon.svg'))">
 
     <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="{{ asset('icon.svg') }}">
     <title>@yield('title', 'AnimeStream') - Portal Anime</title>
+
+    @yield('ld_json')
     <!-- Google Fonts -->
     <link rel="icon" type="image/svg+xml" href="/icon.svg">
     <link href="https://fonts.googleapis.com" rel="preconnect"/>
@@ -131,7 +135,7 @@
                         <div class="flex items-center justify-center size-8 rounded bg-primary text-white">
                             <span class="material-symbols-outlined">play_arrow</span>
                         </div>
-                        <h2 class="text-lg font-bold tracking-tight">AnimeStream</h2>
+                        <span class="text-lg font-bold tracking-tight">AnimeStream</span>
                     </a>
                     <nav class="hidden md:flex items-center gap-6">
                         <a class="text-sm font-medium {{ request()->routeIs('home') ? 'text-primary' : 'text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-white' }} transition-colors" href="{{ route('home') }}">Home</a>
@@ -161,10 +165,6 @@
                         <button @click="toggleTheme" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-[#292249] transition-colors text-gray-600 dark:text-gray-300">
                             <span class="material-symbols-outlined" x-text="darkMode ? 'light_mode' : 'dark_mode'">dark_mode</span>
                         </button>
-                        <!-- Profile -->
-                        <button class="ml-2 size-9 rounded-full overflow-hidden border-2 border-transparent hover:border-primary transition-all">
-                            <div class="w-full h-full bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCMLY-NB4Am9RxFr7ikeX98WXBOVyEPlUtFLvkEcNXccLrJwYOzQBnihSOTCyWeREjslHPHI_qSHjgl9c9NesmVluZ6QJgG8a6Dduxc8bgPl62BRp3oAZpvK7t-GUX7wi2g4TiImtsvxXm-yXl8GsR50gi4hN12sxq7bfDdPXvWHN-qli_AmBunsIHB3lZE8rvpQpL-XncfHVIkFFXnxY4y5zobfO0Bxn0YPOQmnZcjTPbclyMVnvAQSgbbNmsaQEttzR2XXIJjHk8");'></div>
-                        </button>
                     </div>
                 </div>
             </div>
@@ -184,7 +184,7 @@
                         <div class="flex items-center justify-center size-8 rounded bg-primary text-white">
                             <span class="material-symbols-outlined">play_arrow</span>
                         </div>
-                        <h2 class="text-lg font-bold tracking-tight">AnimeStream</h2>
+                        <span class="text-lg font-bold tracking-tight">AnimeStream</span>
                     </div>
                     <p class="text-sm text-gray-500 dark:text-gray-400">The best place to stream your favorite anime anytime, anywhere. Experience the magic of animation.</p>
                 </div>

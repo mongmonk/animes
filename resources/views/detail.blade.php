@@ -1,6 +1,34 @@
 @extends('layouts.app')
 
-@section('title', $anime->title)
+@section('title', 'Nonton ' . $anime->title . ' Subtitle Indonesia')
+@section('meta_description', 'Nonton anime ' . $anime->title . ' subtitle Indonesia. ' . Str::limit($anime->synopsis, 150))
+@section('meta_keywords', $anime->title . ', nonton ' . $anime->title . ', ' . $anime->title . ' sub indo, streaming ' . $anime->title . ', ' . $anime->genres->pluck('name')->join(', '))
+@section('og_type', 'video.tv_show')
+@section('og_image', Str::startsWith($anime->poster_url, 'posters/') ? asset('storage/' . $anime->poster_url) : $anime->poster_url)
+
+@section('ld_json')
+<script type="application/ld+json">
+{
+  "@@context": "https://schema.org",
+  "@@type": "Movie",
+  "name": "{{ $anime->title }}",
+  "description": "{{ Str::limit($anime->synopsis, 200) }}",
+  "image": "{{ Str::startsWith($anime->poster_url, 'posters/') ? asset('storage/' . $anime->poster_url) : $anime->poster_url }}",
+  "aggregateRating": {
+    "@@type": "AggregateRating",
+    "ratingValue": "{{ $anime->rating ?? '0' }}",
+    "bestRating": "10",
+    "worstRating": "1",
+    "ratingCount": "100"
+  },
+  "genre": [
+    @foreach($anime->genres as $genre)
+      "{{ $genre->name }}"{{ !$loop->last ? ',' : '' }}
+    @endforeach
+  ]
+}
+</script>
+@endsection
 
 @section('content')
     <div class="flex flex-col md:flex-row gap-8">

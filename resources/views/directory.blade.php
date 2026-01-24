@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', $title ?? (isset($query) ? "Hasil Pencarian: $query" : 'Daftar Anime'))
+@section('meta_description', $title ?? (isset($query) ? "Hasil pencarian anime untuk: $query. Temukan anime favoritmu di AnimeStream." : "Jelajahi daftar seluruh anime subtitle Indonesia terlengkap di AnimeStream."))
 
 @section('content')
 <div class="container mx-auto px-4 py-10 max-w-7xl">

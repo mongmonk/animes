@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Daftar Genre')
+@section('title', 'Daftar Genre Anime Terlengkap')
+@section('meta_description', 'Cari anime favoritmu berdasarkan genre. Mulai dari Action, Adventure, Comedy, hingga Romance semuanya tersedia di AnimeStream.')
 
 @section('content')
 <div class="container mx-auto px-4 py-10 max-w-7xl">

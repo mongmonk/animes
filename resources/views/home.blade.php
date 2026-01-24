@@ -1,6 +1,25 @@
 @extends('layouts.app')
 
-@section('title', 'Homepage')
+@section('title', 'Nonton Anime Subtitle Indonesia Terlengkap')
+@section('meta_description', 'Nikmati streaming anime subtitle Indonesia terlengkap dan terupdate. Tonton ribuan judul anime favorit Anda dengan kualitas terbaik secara gratis di AnimeStream.')
+@section('meta_keywords', 'nonton anime, streaming anime, anime sub indo, anime stream, anime terbaru, daftar anime, anime gratis')
+
+@section('ld_json')
+<script type="application/ld+json">
+{
+  "@@context": "https://schema.org",
+  "@@type": "WebSite",
+  "url": "{{ url('/') }}",
+  "name": "AnimeStream",
+  "description": "Nonton anime subtitle Indonesia terlengkap dan terupdate.",
+  "potentialAction": {
+    "@@type": "SearchAction",
+    "target": "{{ route('anime.search') }}?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+@endsection
 
 @section('content')
     <!-- Hero Slider Section -->

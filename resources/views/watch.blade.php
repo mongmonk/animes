@@ -1,6 +1,28 @@
 @extends('layouts.app')
 
-@section('title', "Nonton " . $anime->title . " Episode " . $episode->episode_number)
+@section('title', "Nonton " . $anime->title . " Episode " . $episode->episode_number . " Subtitle Indonesia")
+@section('meta_description', "Nonton streaming anime " . $anime->title . " Episode " . $episode->episode_number . " subtitle Indonesia. Nikmati kualitas terbaik secara gratis di AnimeStream.")
+@section('meta_keywords', "nonton " . $anime->title . " episode " . $episode->episode_number . ", streaming " . $anime->title . " ep " . $episode->episode_number . ", " . $anime->title . " sub indo")
+@section('og_type', 'video.episode')
+@section('og_image', Str::startsWith($anime->poster_url, 'posters/') ? asset('storage/' . $anime->poster_url) : $anime->poster_url)
+
+@section('ld_json')
+<script type="application/ld+json">
+{
+  "@@context": "https://schema.org",
+  "@@type": "Episode",
+  "name": "{{ $anime->title }} Episode {{ $episode->episode_number }}",
+  "episodeNumber": "{{ $episode->episode_number }}",
+  "partOfTVSeries": {
+    "@@type": "TVSeries",
+    "name": "{{ $anime->title }}",
+    "url": "{{ route('anime.detail', $anime->slug) }}"
+  },
+  "image": "{{ Str::startsWith($anime->poster_url, 'posters/') ? asset('storage/' . $anime->poster_url) : $anime->poster_url }}",
+  "description": "Nonton {{ $anime->title }} Episode {{ $episode->episode_number }} Subtitle Indonesia."
+}
+</script>
+@endsection
 
 @section('content')
     <div class="max-w-5xl mx-auto">
@@ -64,29 +86,39 @@
             </div>
         </div>
 
-        @if($episode->downloads->count() > 0)
-            <div class="bg-dark-secondary p-6 rounded-2xl border border-white/5 shadow-xl">
-                <h2 class="text-lg font-bold mb-4 flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-accent-green" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                    Download Episode
-                </h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-                    @foreach($episode->downloads as $download)
-                        <a href="{{ $download->url }}" target="_blank" class="flex items-center justify-between p-3 bg-white/5 hover:bg-white/10 rounded-xl transition border border-white/5 group">
-                            <div>
-                                <span class="text-xs font-bold text-accent-green block uppercase">{{ $download->quality }}</span>
-                                <span class="text-sm opacity-70">{{ $download->host }}</span>
-                            </div>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 opacity-0 group-hover:opacity-100 transition text-accent-green" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                            </svg>
-                        </a>
-                    @endforeach
-                </div>
+        <div class="bg-dark-secondary p-6 rounded-2xl border border-white/5 shadow-xl">
+            <h2 class="text-lg font-bold mb-4 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-accent-green" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+                Download Episode
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                @php
+                    $downloadConfigs = [
+                        ['label' => '480p'],
+                        ['label' => '720p'],
+                        ['label' => '1080p'],
+                    ];
+                @endphp
+
+                @foreach($downloadConfigs as $index => $config)
+                    @php
+                        $download = $episode->downloads->get($index);
+                        $url = $download ? $download->url : 'https://indanime.my.id';
+                    @endphp
+                    <a href="{{ $url }}" target="_blank" class="flex items-center justify-between p-3 bg-white/5 hover:bg-white/10 rounded-xl transition border border-white/5 group">
+                        <div>
+                            <span class="text-xs font-bold text-accent-green block uppercase">{{ $config['label'] }}</span>
+                            <span class="text-sm opacity-70"> Download Dari Server {{ $index + 1 }}</span>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 opacity-0 group-hover:opacity-100 transition text-accent-green" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                @endforeach
             </div>
-        @endif
+        </div>
 
         {{-- Anime Info Section --}}
         <div class="mt-12 bg-dark-secondary rounded-2xl border border-white/5 overflow-hidden shadow-xl">
